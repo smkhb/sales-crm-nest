@@ -3,6 +3,7 @@ import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import eslintNestJs from '@darraghor/eslint-plugin-nestjs-typed';
 
 export default tseslint.config(
   {
@@ -32,6 +33,7 @@ export default tseslint.config(
       '@typescript-eslint/require-await': 'off',
     },
   },
+  eslintNestJs.configs.flatRecommended,
   // Config Para Testes Abaixo
   {
     files: ['*.test.ts'],
