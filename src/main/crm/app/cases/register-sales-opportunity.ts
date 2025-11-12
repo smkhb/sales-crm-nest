@@ -1,14 +1,14 @@
-import { Either, left, Left, right } from "@/core/either";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { ClientNotFoundError } from "./errors/client-not-found-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { SalesOpportunity } from "../../enterprise/entities/sales-opportunity";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { ClientsRepo } from "../repos/clients-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { SalesOpportunitiesRepo } from "../repos/salesOpportunities-repo";
-import { DomainEvents } from "@/core/events/domain-events";
+import { Either, left, Left, right } from '@/core/either';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { ClientNotFoundError } from './errors/client-not-found-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { SalesOpportunity } from '../../enterprise/entities/sales-opportunity';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { ClientsRepo } from '../repos/clients-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { SalesOpportunitiesRepo } from '../repos/salesOpportunities-repo';
+import { DomainEvents } from '@/core/events/domain-events';
 
 interface RegisterSalesOpportunityUseCaseRequest {
   executorID: string;
@@ -28,7 +28,7 @@ export class RegisterSalesOpportunityUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
     private clientsRepo: ClientsRepo,
-    private salesOpportunitiesRepo: SalesOpportunitiesRepo
+    private salesOpportunitiesRepo: SalesOpportunitiesRepo,
   ) {}
 
   async execute({

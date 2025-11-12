@@ -1,11 +1,11 @@
-import { Either, left, right } from "@/core/either";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { SalesOpportunityNotFoundError } from "./errors/sales-opportunity-not-found-error";
-import { SalesOpportunity } from "../../enterprise/entities/sales-opportunity";
-import { SalesOpportunitiesRepo } from "../repos/salesOpportunities-repo";
+import { Either, left, right } from '@/core/either';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { SalesOpportunityNotFoundError } from './errors/sales-opportunity-not-found-error';
+import { SalesOpportunity } from '../../enterprise/entities/sales-opportunity';
+import { SalesOpportunitiesRepo } from '../repos/salesOpportunities-repo';
 
 interface GetSalesOpportunityByIDUseCaseRequest {
   executorID: string;
@@ -20,7 +20,7 @@ type GetSalesOpportunityByIDUseCaseResponse = Either<
 export class GetSalesOpportunityByIDUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private salesopportunitysRepo: SalesOpportunitiesRepo
+    private salesopportunitysRepo: SalesOpportunitiesRepo,
   ) {}
 
   async execute({
@@ -33,9 +33,8 @@ export class GetSalesOpportunityByIDUseCase {
       return left(new SalespersonNotFoundError());
     }
 
-    const salesOpportunity = await this.salesopportunitysRepo.findByID(
-      salesOpportunityID
-    );
+    const salesOpportunity =
+      await this.salesopportunitysRepo.findByID(salesOpportunityID);
 
     if (!salesOpportunity) {
       return left(new SalesOpportunityNotFoundError());

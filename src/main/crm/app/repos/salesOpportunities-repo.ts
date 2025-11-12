@@ -1,4 +1,4 @@
-import { SalesOpportunity } from "../../enterprise/entities/sales-opportunity";
+import { SalesOpportunity } from '../../enterprise/entities/sales-opportunity';
 
 export abstract class SalesOpportunitiesRepo {
   abstract create(salesopportunity: SalesOpportunity): Promise<void>;
@@ -9,6 +9,6 @@ export abstract class SalesOpportunitiesRepo {
   abstract findMany(page: number): Promise<SalesOpportunity[]>;
   abstract findManyBySalespersonID(
     id: string,
-    page: number
+    page: number,
   ): Promise<SalesOpportunity[]>;
 }

@@ -1,13 +1,13 @@
-import { Either, left, Left, right } from "@/core/either";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { SalesOpportunity } from "../../enterprise/entities/sales-opportunity";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { SalesOpportunitiesRepo } from "../repos/salesOpportunities-repo";
-import { SalesOpportunityNotFoundError } from "./errors/sales-opportunity-not-found-error";
-import { SalesOpportunityStatus } from "../../enterprise/entities/enum/salesOpportunityStatus";
-import { DomainEvents } from "@/core/events/domain-events";
+import { Either, left, Left, right } from '@/core/either';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { SalesOpportunity } from '../../enterprise/entities/sales-opportunity';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { SalesOpportunitiesRepo } from '../repos/salesOpportunities-repo';
+import { SalesOpportunityNotFoundError } from './errors/sales-opportunity-not-found-error';
+import { SalesOpportunityStatus } from '../../enterprise/entities/enum/salesOpportunityStatus';
+import { DomainEvents } from '@/core/events/domain-events';
 
 interface UpdateSalesOpportunityUseCaseRequest {
   executorID: string;
@@ -27,7 +27,7 @@ type UpdateSalesOpportunityUseCaseResponse = Either<
 export class UpdateSalesOpportunityUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private salesOpportunitiesRepo: SalesOpportunitiesRepo
+    private salesOpportunitiesRepo: SalesOpportunitiesRepo,
   ) {}
 
   async execute({
@@ -44,9 +44,8 @@ export class UpdateSalesOpportunityUseCase {
       return new Left(new SalespersonNotFoundError());
     }
 
-    const salesOpportunity = await this.salesOpportunitiesRepo.findByID(
-      salesOpportunityID
-    );
+    const salesOpportunity =
+      await this.salesOpportunitiesRepo.findByID(salesOpportunityID);
 
     if (!salesOpportunity) {
       return left(new SalesOpportunityNotFoundError());

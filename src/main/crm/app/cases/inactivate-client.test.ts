@@ -1,19 +1,19 @@
-import { InMemoClientsRepo } from "tests/repos/in-memo-clients-repo";
-import { DomainEvents } from "@/core/events/domain-events";
-import { InMemoSalespersonsRepo } from "tests/repos/in-memo-salespersons-repo";
-import { makeClient } from "tests/factories/make-client";
-import { makeSalesperson } from "tests/factories/make-salesperson";
-import { ClientNotFoundError } from "./errors/client-not-found-error";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { InactivateClientUseCase } from "./inactivate-client";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { InMemoClientsRepo } from 'tests/repos/in-memo-clients-repo';
+import { DomainEvents } from '@/core/events/domain-events';
+import { InMemoSalespersonsRepo } from 'tests/repos/in-memo-salespersons-repo';
+import { makeClient } from 'tests/factories/make-client';
+import { makeSalesperson } from 'tests/factories/make-salesperson';
+import { ClientNotFoundError } from './errors/client-not-found-error';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { InactivateClientUseCase } from './inactivate-client';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 let clientsRepo: InMemoClientsRepo;
 let salespersonsRepo: InMemoSalespersonsRepo;
 let sut: InactivateClientUseCase;
 
-describe("Inactivate Client", () => {
+describe('Inactivate Client', () => {
   beforeEach(() => {
     clientsRepo = new InMemoClientsRepo();
     salespersonsRepo = new InMemoSalespersonsRepo();
@@ -21,7 +21,7 @@ describe("Inactivate Client", () => {
     DomainEvents.clearHandlers();
   });
 
-  it("should be able to inactivate a client if the executor is the Sales Representent", async () => {
+  it('should be able to inactivate a client if the executor is the Sales Representent', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
 
@@ -36,12 +36,12 @@ describe("Inactivate Client", () => {
     expect(result.isRight()).toBe(true);
     expect(clientsRepo.items[0]).toEqual(
       expect.objectContaining({
-        status: "inactive",
-      })
+        status: 'inactive',
+      }),
     );
   });
 
-  it("should be able to update a client if the executor is a Manager", async () => {
+  it('should be able to update a client if the executor is a Manager', async () => {
     const manager = makeSalesperson({ role: SalespersonRole.manager });
     salespersonsRepo.items.push(manager);
 
@@ -59,12 +59,12 @@ describe("Inactivate Client", () => {
     expect(result.isRight()).toBe(true);
     expect(clientsRepo.items[0]).toEqual(
       expect.objectContaining({
-        status: "inactive",
-      })
+        status: 'inactive',
+      }),
     );
   });
 
-  it("should not be able to update a client if the executor is not the Sales Representent or Manager", async () => {
+  it('should not be able to update a client if the executor is not the Sales Representent or Manager', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
 
@@ -83,20 +83,20 @@ describe("Inactivate Client", () => {
     expect(result.value).toBeInstanceOf(NotAllowedError);
   });
 
-  it("should not be able to update a non existing client", async () => {
+  it('should not be able to update a non existing client', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
 
     const result = await sut.execute({
       executorID: salesRep.id.toString(),
-      clientID: "non-existing-client-id",
+      clientID: 'non-existing-client-id',
     });
 
     expect(result.isLeft()).toBe(true);
     expect(result.value).toBeInstanceOf(ClientNotFoundError);
   });
 
-  it("should not be able to inactivate a client if the executor is non existing", async () => {
+  it('should not be able to inactivate a client if the executor is non existing', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
 
@@ -104,7 +104,7 @@ describe("Inactivate Client", () => {
     clientsRepo.items.push(client);
 
     const result = await sut.execute({
-      executorID: "non-existing-salesperson-id",
+      executorID: 'non-existing-salesperson-id',
       clientID: client.id.toString(),
     });
 

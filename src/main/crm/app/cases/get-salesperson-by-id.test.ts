@@ -1,15 +1,15 @@
-import { DomainEvents } from "@/core/events/domain-events";
-import { InMemoSalespersonsRepo } from "tests/repos/in-memo-salespersons-repo";
-import { makeSalesperson } from "tests/factories/make-salesperson";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { GetSalespersonByIDUseCase } from "./get-salesperson-by-id";
+import { DomainEvents } from '@/core/events/domain-events';
+import { InMemoSalespersonsRepo } from 'tests/repos/in-memo-salespersons-repo';
+import { makeSalesperson } from 'tests/factories/make-salesperson';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { GetSalespersonByIDUseCase } from './get-salesperson-by-id';
 
 let salespersonsRepo: InMemoSalespersonsRepo;
 let sut: GetSalespersonByIDUseCase;
 
-describe("Get Salesperson by ID", () => {
+describe('Get Salesperson by ID', () => {
   beforeEach(() => {
     salespersonsRepo = new InMemoSalespersonsRepo();
     sut = new GetSalespersonByIDUseCase(salespersonsRepo);
@@ -21,8 +21,8 @@ describe("Get Salesperson by ID", () => {
     salespersonsRepo.items.push(manager);
 
     const salesperson = makeSalesperson({
-      name: "John Doe",
-      email: "johndoe@example.com",
+      name: 'John Doe',
+      email: 'johndoe@example.com',
     });
     salespersonsRepo.items.push(salesperson);
 
@@ -34,13 +34,13 @@ describe("Get Salesperson by ID", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salesperson: expect.objectContaining({
-        name: "John Doe",
-        email: "johndoe@example.com",
+        name: 'John Doe',
+        email: 'johndoe@example.com',
       }),
     });
   });
 
-  it("should not be able to get a salesperson if the executor is not a manager", async () => {
+  it('should not be able to get a salesperson if the executor is not a manager', async () => {
     const notAManager = makeSalesperson();
     salespersonsRepo.items.push(notAManager);
 
@@ -59,13 +59,13 @@ describe("Get Salesperson by ID", () => {
     expect(result.value).toBeInstanceOf(NotAllowedError);
   });
 
-  it("should not be able to get a non existing salesperson", async () => {
+  it('should not be able to get a non existing salesperson', async () => {
     const manager = makeSalesperson({ role: SalespersonRole.manager });
     salespersonsRepo.items.push(manager);
 
     const result = await sut.execute({
       executorRole: manager.role,
-      salespersonID: "non-existing-salesperson-id",
+      salespersonID: 'non-existing-salesperson-id',
     });
 
     expect(result.isLeft()).toBe(true);

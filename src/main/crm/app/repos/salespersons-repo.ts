@@ -1,4 +1,4 @@
-import { Salesperson } from "../../enterprise/entities/salesperson";
+import { Salesperson } from '../../enterprise/entities/salesperson';
 
 export abstract class SalespersonsRepo {
   abstract create(salesperson: Salesperson): Promise<void>;

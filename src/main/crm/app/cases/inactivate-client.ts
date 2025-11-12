@@ -1,12 +1,12 @@
-import { Either, left, right } from "@/core/either";
-import { Client } from "../../enterprise/entities/client";
-import { ClientsRepo } from "../repos/clients-repo";
-import { DomainEvents } from "@/core/events/domain-events";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { ClientNotFoundError } from "./errors/client-not-found-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { Either, left, right } from '@/core/either';
+import { Client } from '../../enterprise/entities/client';
+import { ClientsRepo } from '../repos/clients-repo';
+import { DomainEvents } from '@/core/events/domain-events';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { ClientNotFoundError } from './errors/client-not-found-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 interface InactivateClientUseCaseRequest {
   executorID: string;
@@ -21,7 +21,7 @@ type InactivateClientUseCaseResponse = Either<
 export class InactivateClientUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private clientsRepo: ClientsRepo
+    private clientsRepo: ClientsRepo,
   ) {}
 
   async execute({

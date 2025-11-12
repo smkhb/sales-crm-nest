@@ -1,8 +1,8 @@
-import { AggregateRoot } from "@/core/entities/aggregate-root";
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { Optional } from "@/core/types/optional";
-import { SalesPersonEvent } from "../events/salesperson-created-event";
-import { SalespersonRole } from "./enum/salespersonRole";
+import { AggregateRoot } from '@/core/entities/aggregate-root';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Optional } from '@/core/types/optional';
+import { SalesPersonEvent } from '../events/salesperson-created-event';
+import { SalespersonRole } from './enum/salespersonRole';
 
 export interface SalespersonProps {
   name: string;
@@ -88,8 +88,8 @@ export class Salesperson extends AggregateRoot<SalespersonProps> {
   }
 
   static create(
-    props: Optional<SalespersonProps, "createdAt" | "role" | "isActive">,
-    id?: UniqueEntityID
+    props: Optional<SalespersonProps, 'createdAt' | 'role' | 'isActive'>,
+    id?: UniqueEntityID,
   ): Salesperson {
     const salesPerson = new Salesperson(
       {
@@ -98,7 +98,7 @@ export class Salesperson extends AggregateRoot<SalespersonProps> {
         isActive: props.isActive ?? true,
         createdAt: props.createdAt ?? new Date(),
       },
-      id
+      id,
     );
 
     const isNewSalesPerson = !id;

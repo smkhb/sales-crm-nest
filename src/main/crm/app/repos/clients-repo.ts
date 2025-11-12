@@ -1,4 +1,4 @@
-import { Client } from "../../enterprise/entities/client";
+import { Client } from '../../enterprise/entities/client';
 
 export abstract class ClientsRepo {
   abstract create(client: Client): Promise<void>;
@@ -7,5 +7,8 @@ export abstract class ClientsRepo {
 
   abstract findByID(id: string): Promise<Client | null>;
   abstract findByEmail(email: string): Promise<Client | null>;
-  abstract findManyBySalesRepID(salesRepID: string, page: number): Promise<Client[]>;
+  abstract findManyBySalesRepID(
+    salesRepID: string,
+    page: number,
+  ): Promise<Client[]>;
 }

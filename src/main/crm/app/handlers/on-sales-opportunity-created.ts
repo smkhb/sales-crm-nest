@@ -1,6 +1,6 @@
-import { EventHandler } from "@/core/events/event-handler";
-import { DomainEvents } from "@/core/events/domain-events";
-import { SalesOpportunityCreatedEvent } from "@/main/crm/enterprise/events/sales-opportunity-created-event";
+import { EventHandler } from '@/core/events/event-handler';
+import { DomainEvents } from '@/core/events/domain-events';
+import { SalesOpportunityCreatedEvent } from '@/main/crm/enterprise/events/sales-opportunity-created-event';
 
 export class OnSalesOpportunityCreated implements EventHandler {
   constructor() {
@@ -10,7 +10,7 @@ export class OnSalesOpportunityCreated implements EventHandler {
   setupSubscriptions() {
     DomainEvents.register(
       this.SalesOpportunityCreatedNotification.bind(this),
-      SalesOpportunityCreatedEvent.name
+      SalesOpportunityCreatedEvent.name,
     );
   }
 
@@ -25,7 +25,7 @@ export class OnSalesOpportunityCreated implements EventHandler {
       Título: ${salesOpportunity.title}
       Cliente: ${salesOpportunity.clientID.toString()}
       ===============================================
-      `
+      `,
     );
   }
 }

@@ -1,10 +1,10 @@
-import { Either, left, right } from "@/core/either";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { SalesOpportunitiesRepo } from "../repos/salesOpportunities-repo";
-import { SalesOpportunity } from "../../enterprise/entities/sales-opportunity";
+import { Either, left, right } from '@/core/either';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { SalesOpportunitiesRepo } from '../repos/salesOpportunities-repo';
+import { SalesOpportunity } from '../../enterprise/entities/sales-opportunity';
 
 interface FetchSalesOpportunitiesUseCaseRequest {
   executorID: string;
@@ -20,7 +20,7 @@ type FetchSalesOpportunitiesUseCaseResponse = Either<
 export class FetchSalesOpportunitiesUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private salesOpportunitiesRepo: SalesOpportunitiesRepo
+    private salesOpportunitiesRepo: SalesOpportunitiesRepo,
   ) {}
 
   async execute({
@@ -50,14 +50,13 @@ export class FetchSalesOpportunitiesUseCase {
         const salesOpportunities =
           await this.salesOpportunitiesRepo.findManyBySalespersonID(
             salespersonID,
-            page
+            page,
           );
 
         return right({ salesOpportunities });
       }
-      const salesOpportunities = await this.salesOpportunitiesRepo.findMany(
-        page
-      );
+      const salesOpportunities =
+        await this.salesOpportunitiesRepo.findMany(page);
 
       return right({ salesOpportunities });
     }
@@ -66,7 +65,7 @@ export class FetchSalesOpportunitiesUseCase {
     const salesOpportunities =
       await this.salesOpportunitiesRepo.findManyBySalespersonID(
         executor.id.toString(),
-        page
+        page,
       );
     return right({ salesOpportunities });
   }

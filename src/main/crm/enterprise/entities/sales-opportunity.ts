@@ -1,16 +1,16 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { SalesOpportunityStatus as OpportunityStatus } from "./enum/salesOpportunityStatus";
-import { AggregateRoot } from "@/core/entities/aggregate-root";
-import { Optional } from "@/core/types/optional";
-import { SalesOpportunityCreatedEvent } from "../events/sales-opportunity-created-event";
-import { SalesOpportunityWrongStatusError } from "./errors/sales-opportunity-wrong-status-error";
-import { SalesOpportunityPhotoURLRequiredError } from "./errors/sales-opportunity-photo-required-error";
-import { Either, left, right } from "@/core/either";
-import { CantMarkSalesOpportunityAsLostError } from "./errors/cant-mark-sales-opportunity-as-lost-error";
-import { SalesOpportunityHighValueEvent } from "../events/sales-opportunity-high-value-event";
-import { SalesOpportunityStatusUpdatedEvent } from "../events/sales-opportunity-status-updated-event";
-import { SalesOpportunityLostEvent } from "../events/sales-opportunity-lost-event";
-import { SalesOpportunityDeliveredEvent } from "../events/sales-opportunity-delivered-event";
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { SalesOpportunityStatus as OpportunityStatus } from './enum/salesOpportunityStatus';
+import { AggregateRoot } from '@/core/entities/aggregate-root';
+import { Optional } from '@/core/types/optional';
+import { SalesOpportunityCreatedEvent } from '../events/sales-opportunity-created-event';
+import { SalesOpportunityWrongStatusError } from './errors/sales-opportunity-wrong-status-error';
+import { SalesOpportunityPhotoURLRequiredError } from './errors/sales-opportunity-photo-required-error';
+import { Either, left, right } from '@/core/either';
+import { CantMarkSalesOpportunityAsLostError } from './errors/cant-mark-sales-opportunity-as-lost-error';
+import { SalesOpportunityHighValueEvent } from '../events/sales-opportunity-high-value-event';
+import { SalesOpportunityStatusUpdatedEvent } from '../events/sales-opportunity-status-updated-event';
+import { SalesOpportunityLostEvent } from '../events/sales-opportunity-lost-event';
+import { SalesOpportunityDeliveredEvent } from '../events/sales-opportunity-delivered-event';
 
 export interface SalesOpportunityProps {
   creatorID: UniqueEntityID;
@@ -102,7 +102,7 @@ export class SalesOpportunity extends AggregateRoot<SalesOpportunityProps> {
       this.props.status !== OpportunityStatus.open
     ) {
       return left(
-        new CantMarkSalesOpportunityAsLostError(this.props.status.toString())
+        new CantMarkSalesOpportunityAsLostError(this.props.status.toString()),
       );
     }
 
@@ -115,7 +115,7 @@ export class SalesOpportunity extends AggregateRoot<SalesOpportunityProps> {
   }
 
   public markAsDelivered(
-    photoURL: string
+    photoURL: string,
   ): Either<
     SalesOpportunityPhotoURLRequiredError | SalesOpportunityWrongStatusError,
     true
@@ -137,8 +137,8 @@ export class SalesOpportunity extends AggregateRoot<SalesOpportunityProps> {
   }
 
   static create(
-    props: Optional<SalesOpportunityProps, "status" | "createdAt">,
-    id?: UniqueEntityID
+    props: Optional<SalesOpportunityProps, 'status' | 'createdAt'>,
+    id?: UniqueEntityID,
   ) {
     const salesOpportunity = new SalesOpportunity(
       {
@@ -146,13 +146,13 @@ export class SalesOpportunity extends AggregateRoot<SalesOpportunityProps> {
         status: props.status ?? OpportunityStatus.open,
         createdAt: props.createdAt ?? new Date(),
       },
-      id
+      id,
     );
     const isNewSalesOpportunity = !id;
 
     if (isNewSalesOpportunity) {
       salesOpportunity.addDomainEvent(
-        new SalesOpportunityCreatedEvent(salesOpportunity)
+        new SalesOpportunityCreatedEvent(salesOpportunity),
       );
     }
 

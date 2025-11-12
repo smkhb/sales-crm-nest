@@ -1,4 +1,4 @@
 export enum SalespersonRole {
-  saleperson = "salesperson",
-  manager = "manager",
+  saleperson = 'salesperson',
+  manager = 'manager',
 }

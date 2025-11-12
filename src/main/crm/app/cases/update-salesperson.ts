@@ -1,11 +1,11 @@
-import { Either, left, right } from "@/core/either";
-import { Salesperson } from "../../enterprise/entities/salesperson";
-import { SalespersonAlreadyExistsError } from "./errors/salesperson-already-exists-error";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { DomainEvents } from "@/core/events/domain-events";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { Either, left, right } from '@/core/either';
+import { Salesperson } from '../../enterprise/entities/salesperson';
+import { SalespersonAlreadyExistsError } from './errors/salesperson-already-exists-error';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { DomainEvents } from '@/core/events/domain-events';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 interface UpdateSalespersonUseCaseRequest {
   executorRole: SalespersonRole;
@@ -43,9 +43,8 @@ export class UpdateSalespersonUseCase {
       return left(new SalespersonNotFoundError());
     }
 
-    const salespersonWithSameEmail = await this.salespersonsRepo.findByEmail(
-      email
-    );
+    const salespersonWithSameEmail =
+      await this.salespersonsRepo.findByEmail(email);
 
     if (
       salespersonWithSameEmail &&

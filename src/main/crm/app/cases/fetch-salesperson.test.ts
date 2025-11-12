@@ -1,14 +1,14 @@
-import { DomainEvents } from "@/core/events/domain-events";
-import { InMemoSalespersonsRepo } from "tests/repos/in-memo-salespersons-repo";
-import { makeSalesperson } from "tests/factories/make-salesperson";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { FetchSalespersonUseCase } from "./fetch-salesperson";
+import { DomainEvents } from '@/core/events/domain-events';
+import { InMemoSalespersonsRepo } from 'tests/repos/in-memo-salespersons-repo';
+import { makeSalesperson } from 'tests/factories/make-salesperson';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { FetchSalespersonUseCase } from './fetch-salesperson';
 
 let salespersonsRepo: InMemoSalespersonsRepo;
 let sut: FetchSalespersonUseCase;
 
-describe("Fetch Salespersons", () => {
+describe('Fetch Salespersons', () => {
   beforeEach(() => {
     salespersonsRepo = new InMemoSalespersonsRepo();
     sut = new FetchSalespersonUseCase(salespersonsRepo);
@@ -24,7 +24,7 @@ describe("Fetch Salespersons", () => {
         makeSalesperson({
           name: `John Doe ${i}`,
           email: `johndoe${i}@example.com`,
-        })
+        }),
       );
     }
 
@@ -36,16 +36,16 @@ describe("Fetch Salespersons", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salespersons: expect.arrayContaining([
-        expect.objectContaining({ name: "John Doe 1" }),
-        expect.objectContaining({ name: "John Doe 2" }),
-        expect.objectContaining({ name: "John Doe 3" }),
-        expect.objectContaining({ name: "John Doe 4" }),
-        expect.objectContaining({ name: "John Doe 5" }),
+        expect.objectContaining({ name: 'John Doe 1' }),
+        expect.objectContaining({ name: 'John Doe 2' }),
+        expect.objectContaining({ name: 'John Doe 3' }),
+        expect.objectContaining({ name: 'John Doe 4' }),
+        expect.objectContaining({ name: 'John Doe 5' }),
       ]),
     });
   });
 
-  it("should be able to fetch a paginated list of salesperson", async () => {
+  it('should be able to fetch a paginated list of salesperson', async () => {
     const manager = makeSalesperson({ role: SalespersonRole.manager });
     salespersonsRepo.items.push(manager);
 
@@ -54,7 +54,7 @@ describe("Fetch Salespersons", () => {
         makeSalesperson({
           name: `John Doe ${i}`,
           email: `johndoe${i}@example.com`,
-        })
+        }),
       );
     }
 
@@ -66,13 +66,13 @@ describe("Fetch Salespersons", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salespersons: expect.arrayContaining([
-        expect.objectContaining({ name: "John Doe 21" }),
-        expect.objectContaining({ name: "John Doe 22" }),
+        expect.objectContaining({ name: 'John Doe 21' }),
+        expect.objectContaining({ name: 'John Doe 22' }),
       ]),
     });
   });
 
-  it("should not be able to fetch a list of salesperson if the executor is not a manager", async () => {
+  it('should not be able to fetch a list of salesperson if the executor is not a manager', async () => {
     const notAManager = makeSalesperson();
     salespersonsRepo.items.push(notAManager);
 
@@ -81,7 +81,7 @@ describe("Fetch Salespersons", () => {
         makeSalesperson({
           name: `John Doe ${i}`,
           email: `johndoe${i}@example.com`,
-        })
+        }),
       );
     }
 

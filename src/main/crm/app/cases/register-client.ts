@@ -1,11 +1,11 @@
-import { Either, left, right } from "@/core/either";
-import { ClientsRepo } from "../repos/clients-repo";
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { Client } from "../../enterprise/entities/client";
-import { DomainEvents } from "@/core/events/domain-events";
-import { ClientAlreadyExistsError } from "./errors/client-already-exists-error";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { Either, left, right } from '@/core/either';
+import { ClientsRepo } from '../repos/clients-repo';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Client } from '../../enterprise/entities/client';
+import { DomainEvents } from '@/core/events/domain-events';
+import { ClientAlreadyExistsError } from './errors/client-already-exists-error';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 interface RegisterClientUseCaseRequest {
   executorID: string;
@@ -25,7 +25,7 @@ type RegisterClientUseCaseResponse = Either<
 export class RegisterClientUseCase {
   constructor(
     private clientsRepo: ClientsRepo,
-    private salespersonsRepo: SalespersonsRepo
+    private salespersonsRepo: SalespersonsRepo,
   ) {}
 
   async execute({

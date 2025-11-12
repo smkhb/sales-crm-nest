@@ -1,9 +1,9 @@
-import { Either, left, right } from "@/core/either";
-import { Salesperson } from "../../enterprise/entities/salesperson";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
+import { Either, left, right } from '@/core/either';
+import { Salesperson } from '../../enterprise/entities/salesperson';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
 
-import { SalespersonsRepo } from "../repos/salespersons-repo";
+import { SalespersonsRepo } from '../repos/salespersons-repo';
 
 interface FetchSalespersonUseCaseRequest {
   executorRole: SalespersonRole;

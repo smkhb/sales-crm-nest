@@ -1,14 +1,14 @@
-import { Either, left, Left, right } from "@/core/either";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { SalesOpportunity } from "../../enterprise/entities/sales-opportunity";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { SalesOpportunitiesRepo } from "../repos/salesOpportunities-repo";
-import { SalesOpportunityNotFoundError } from "./errors/sales-opportunity-not-found-error";
-import { SalesOpportunityPhotoURLRequiredError } from "../../enterprise/entities/errors/sales-opportunity-photo-required-error";
-import { SalesOpportunityWrongStatusError } from "../../enterprise/entities/errors/sales-opportunity-wrong-status-error";
-import { DomainEvents } from "@/core/events/domain-events";
+import { Either, left, Left, right } from '@/core/either';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { SalesOpportunity } from '../../enterprise/entities/sales-opportunity';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { SalesOpportunitiesRepo } from '../repos/salesOpportunities-repo';
+import { SalesOpportunityNotFoundError } from './errors/sales-opportunity-not-found-error';
+import { SalesOpportunityPhotoURLRequiredError } from '../../enterprise/entities/errors/sales-opportunity-photo-required-error';
+import { SalesOpportunityWrongStatusError } from '../../enterprise/entities/errors/sales-opportunity-wrong-status-error';
+import { DomainEvents } from '@/core/events/domain-events';
 
 interface MarkOpportunityAsDeliveredUseCaseRequest {
   executorID: string;
@@ -28,7 +28,7 @@ type MarkOpportunityAsDeliveredUseCaseResponse = Either<
 export class MarkOpportunityAsDeliveredUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private salesOpportunitiesRepo: SalesOpportunitiesRepo
+    private salesOpportunitiesRepo: SalesOpportunitiesRepo,
   ) {}
 
   async execute({
@@ -42,9 +42,8 @@ export class MarkOpportunityAsDeliveredUseCase {
       return new Left(new SalespersonNotFoundError());
     }
 
-    const salesOpportunity = await this.salesOpportunitiesRepo.findByID(
-      salesOpportunityID
-    );
+    const salesOpportunity =
+      await this.salesOpportunitiesRepo.findByID(salesOpportunityID);
 
     if (!salesOpportunity) {
       return left(new SalesOpportunityNotFoundError());

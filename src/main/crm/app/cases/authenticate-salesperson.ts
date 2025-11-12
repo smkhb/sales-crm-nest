@@ -1,10 +1,10 @@
-import { Either, left, right } from "@/core/either";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { HashComparer } from "../cryptography/hash-comparer";
-import { Encrypter } from "../cryptography/encrypter";
-import { WrongCredentialsError } from "@/core/errors/errors/wrong-credentials-error";
-import { SalespersonDeactiveError } from "./errors/salesperson-deactive-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { Either, left, right } from '@/core/either';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { HashComparer } from '../cryptography/hash-comparer';
+import { Encrypter } from '../cryptography/encrypter';
+import { WrongCredentialsError } from '@/core/errors/errors/wrong-credentials-error';
+import { SalespersonDeactiveError } from './errors/salesperson-deactive-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 interface AuthenticateSalespersonUseCaseRequest {
   email: string;
@@ -20,7 +20,7 @@ export class AuthenticateSalespersonUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
     private hashComparer: HashComparer,
-    private encrypter: Encrypter
+    private encrypter: Encrypter,
   ) {}
 
   async execute({
@@ -35,7 +35,7 @@ export class AuthenticateSalespersonUseCase {
 
     const doesPasswordMatch = await this.hashComparer.compare(
       password,
-      salesperson.passwordHash
+      salesperson.passwordHash,
     );
 
     if (!doesPasswordMatch) {

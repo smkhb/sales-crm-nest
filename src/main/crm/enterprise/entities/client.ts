@@ -1,8 +1,8 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { AggregateRoot } from "@/core/entities/aggregate-root";
-import { Optional } from "@/core/types/optional";
-import { ClientCreatedEvent } from "../events/client-created-event";
-import { ClientStatus } from "./enum/clientStatus";
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { AggregateRoot } from '@/core/entities/aggregate-root';
+import { Optional } from '@/core/types/optional';
+import { ClientCreatedEvent } from '../events/client-created-event';
+import { ClientStatus } from './enum/clientStatus';
 
 export interface ClientProps {
   creatorID: UniqueEntityID;
@@ -93,8 +93,8 @@ export class Client extends AggregateRoot<ClientProps> {
   }
 
   static create(
-    props: Optional<ClientProps, "creatorID" | "status" | "createdAt">,
-    id?: UniqueEntityID
+    props: Optional<ClientProps, 'creatorID' | 'status' | 'createdAt'>,
+    id?: UniqueEntityID,
   ): Client {
     const client = new Client(
       {
@@ -103,7 +103,7 @@ export class Client extends AggregateRoot<ClientProps> {
         status: props.status ?? ClientStatus.lead,
         createdAt: props.createdAt ?? new Date(),
       },
-      id
+      id,
     );
     const isNewClient = !id; // If no id is provided, it's a new client
 

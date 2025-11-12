@@ -1,11 +1,11 @@
-import { Either, left, right } from "@/core/either";
-import { Salesperson } from "../../enterprise/entities/salesperson";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { DomainEvents } from "@/core/events/domain-events";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
-import { HashGenerator } from "../cryptography/hash-generator";
+import { Either, left, right } from '@/core/either';
+import { Salesperson } from '../../enterprise/entities/salesperson';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { DomainEvents } from '@/core/events/domain-events';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { HashGenerator } from '../cryptography/hash-generator';
 
 interface UpdateSalespersonPasswordUseCaseRequest {
   executorRole: SalespersonRole;
@@ -21,7 +21,7 @@ type UpdateSalespersonPasswordUseCaseResponse = Either<
 export class UpdateSalespersonPasswordUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private hashGenerator: HashGenerator
+    private hashGenerator: HashGenerator,
   ) {}
 
   async execute({

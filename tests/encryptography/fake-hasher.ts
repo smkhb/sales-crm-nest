@@ -1,5 +1,5 @@
-import { HashComparer } from "@/main/crm/app/cryptography/hash-comparer";
-import { HashGenerator } from "@/main/crm/app/cryptography/hash-generator";
+import { HashComparer } from '@/main/crm/app/cryptography/hash-comparer';
+import { HashGenerator } from '@/main/crm/app/cryptography/hash-generator';
 
 export class FakeHasher implements HashGenerator, HashComparer {
   async hash(plain: string): Promise<string> {

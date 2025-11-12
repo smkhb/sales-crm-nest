@@ -1,6 +1,6 @@
-import { EventHandler } from "@/core/events/event-handler";
-import { DomainEvents } from "@/core/events/domain-events";
-import { SalesOpportunityHighValueEvent } from "../../enterprise/events/sales-opportunity-high-value-event";
+import { EventHandler } from '@/core/events/event-handler';
+import { DomainEvents } from '@/core/events/domain-events';
+import { SalesOpportunityHighValueEvent } from '../../enterprise/events/sales-opportunity-high-value-event';
 
 export class OnHighValueSalesOpportunityUpdated implements EventHandler {
   constructor() {
@@ -10,7 +10,7 @@ export class OnHighValueSalesOpportunityUpdated implements EventHandler {
   setupSubscriptions() {
     DomainEvents.register(
       this.HighValueSalesOpportunityUpdatedNotification.bind(this),
-      SalesOpportunityHighValueEvent.name
+      SalesOpportunityHighValueEvent.name,
     );
   }
 
@@ -25,7 +25,7 @@ export class OnHighValueSalesOpportunityUpdated implements EventHandler {
       Valor: ${salesOpportunity.value}
       Novo Status: ${salesOpportunity.status}
       ===============================================
-      `
+      `,
     );
   }
 }

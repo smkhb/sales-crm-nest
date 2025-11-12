@@ -1,12 +1,12 @@
-import { Either, left, right } from "@/core/either";
-import { Salesperson } from "../../enterprise/entities/salesperson";
-import { DomainEvents } from "@/core/events/domain-events";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { HashGenerator } from "../cryptography/hash-generator";
-import { SalespersonAlreadyExistsError } from "./errors/salesperson-already-exists-error";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { Either, left, right } from '@/core/either';
+import { Salesperson } from '../../enterprise/entities/salesperson';
+import { DomainEvents } from '@/core/events/domain-events';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { HashGenerator } from '../cryptography/hash-generator';
+import { SalespersonAlreadyExistsError } from './errors/salesperson-already-exists-error';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 interface RegisterSalespersonUseCaseRequest {
   executorID: string;
@@ -24,7 +24,7 @@ type RegisterSalespersonUseCaseResponse = Either<
 export class RegisterSalespersonUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private hashGenerator: HashGenerator
+    private hashGenerator: HashGenerator,
   ) {}
 
   async execute({

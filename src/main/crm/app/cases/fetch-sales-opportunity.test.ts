@@ -1,33 +1,33 @@
-import { InMemoClientsRepo } from "tests/repos/in-memo-clients-repo";
-import { DomainEvents } from "@/core/events/domain-events";
-import { InMemoSalespersonsRepo } from "tests/repos/in-memo-salespersons-repo";
-import { makeClient } from "tests/factories/make-client";
-import { makeSalesperson } from "tests/factories/make-salesperson";
-import { InMemoSalesOpportunitiesRepo } from "tests/repos/in-memo-sales-opportunity-repo";
-import { FetchSalesOpportunitiesUseCase } from "./fetch-sales-opportunity";
-import { makeSalesOpportunity } from "tests/factories/make-sales-opportunity";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { InMemoClientsRepo } from 'tests/repos/in-memo-clients-repo';
+import { DomainEvents } from '@/core/events/domain-events';
+import { InMemoSalespersonsRepo } from 'tests/repos/in-memo-salespersons-repo';
+import { makeClient } from 'tests/factories/make-client';
+import { makeSalesperson } from 'tests/factories/make-salesperson';
+import { InMemoSalesOpportunitiesRepo } from 'tests/repos/in-memo-sales-opportunity-repo';
+import { FetchSalesOpportunitiesUseCase } from './fetch-sales-opportunity';
+import { makeSalesOpportunity } from 'tests/factories/make-sales-opportunity';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 let clientsRepo: InMemoClientsRepo;
 let salesOpportunitiesRepo: InMemoSalesOpportunitiesRepo;
 let salespersonsRepo: InMemoSalespersonsRepo;
 let sut: FetchSalesOpportunitiesUseCase;
 
-describe("Fetch sales opportunities", () => {
+describe('Fetch sales opportunities', () => {
   beforeEach(() => {
     clientsRepo = new InMemoClientsRepo();
     salespersonsRepo = new InMemoSalespersonsRepo();
     salesOpportunitiesRepo = new InMemoSalesOpportunitiesRepo();
     sut = new FetchSalesOpportunitiesUseCase(
       salespersonsRepo,
-      salesOpportunitiesRepo
+      salesOpportunitiesRepo,
     );
     DomainEvents.clearHandlers();
   });
 
-  it("should be able to fetch especific sales opportunities as a Sales Rep", async () => {
+  it('should be able to fetch especific sales opportunities as a Sales Rep', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -51,16 +51,16 @@ describe("Fetch sales opportunities", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salesOpportunities: expect.arrayContaining([
-        expect.objectContaining({ title: "Opportunity 1" }),
-        expect.objectContaining({ title: "Opportunity 2" }),
-        expect.objectContaining({ title: "Opportunity 3" }),
-        expect.objectContaining({ title: "Opportunity 4" }),
-        expect.objectContaining({ title: "Opportunity 5" }),
+        expect.objectContaining({ title: 'Opportunity 1' }),
+        expect.objectContaining({ title: 'Opportunity 2' }),
+        expect.objectContaining({ title: 'Opportunity 3' }),
+        expect.objectContaining({ title: 'Opportunity 4' }),
+        expect.objectContaining({ title: 'Opportunity 5' }),
       ]),
     });
   });
 
-  it("should be able to fetch paginated sales opportunities", async () => {
+  it('should be able to fetch paginated sales opportunities', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -84,13 +84,13 @@ describe("Fetch sales opportunities", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salesOpportunities: expect.arrayContaining([
-        expect.objectContaining({ title: "Opportunity 21" }),
-        expect.objectContaining({ title: "Opportunity 22" }),
+        expect.objectContaining({ title: 'Opportunity 21' }),
+        expect.objectContaining({ title: 'Opportunity 22' }),
       ]),
     });
   });
 
-  it("should be able to fetch especific sales opportunities as a Manager", async () => {
+  it('should be able to fetch especific sales opportunities as a Manager', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -117,16 +117,16 @@ describe("Fetch sales opportunities", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salesOpportunities: expect.arrayContaining([
-        expect.objectContaining({ title: "Opportunity 1" }),
-        expect.objectContaining({ title: "Opportunity 2" }),
-        expect.objectContaining({ title: "Opportunity 3" }),
-        expect.objectContaining({ title: "Opportunity 4" }),
-        expect.objectContaining({ title: "Opportunity 5" }),
+        expect.objectContaining({ title: 'Opportunity 1' }),
+        expect.objectContaining({ title: 'Opportunity 2' }),
+        expect.objectContaining({ title: 'Opportunity 3' }),
+        expect.objectContaining({ title: 'Opportunity 4' }),
+        expect.objectContaining({ title: 'Opportunity 5' }),
       ]),
     });
   });
 
-  it("should be able to fetch all sales opportunities as a Manager", async () => {
+  it('should be able to fetch all sales opportunities as a Manager', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -167,17 +167,17 @@ describe("Fetch sales opportunities", () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toMatchObject({
       salesOpportunities: expect.arrayContaining([
-        expect.objectContaining({ title: "Opportunity 1" }),
-        expect.objectContaining({ title: "Opportunity 2" }),
-        expect.objectContaining({ title: "Opportunity 3" }),
-        expect.objectContaining({ title: "Opportunity 4" }),
-        expect.objectContaining({ title: "Opportunity 5" }),
-        expect.objectContaining({ title: "Opportunity 6" }),
+        expect.objectContaining({ title: 'Opportunity 1' }),
+        expect.objectContaining({ title: 'Opportunity 2' }),
+        expect.objectContaining({ title: 'Opportunity 3' }),
+        expect.objectContaining({ title: 'Opportunity 4' }),
+        expect.objectContaining({ title: 'Opportunity 5' }),
+        expect.objectContaining({ title: 'Opportunity 6' }),
       ]),
     });
   });
 
-  it("should not be able to fetch sales opportunities as non existing executor", async () => {
+  it('should not be able to fetch sales opportunities as non existing executor', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -193,7 +193,7 @@ describe("Fetch sales opportunities", () => {
     }
 
     const result = await sut.execute({
-      executorID: "non-existing-id",
+      executorID: 'non-existing-id',
       salespersonID: salesRep.id.toString(),
       page: 1,
     });
@@ -202,7 +202,7 @@ describe("Fetch sales opportunities", () => {
     expect(result.value).toBeInstanceOf(SalespersonNotFoundError);
   });
 
-  it("should not be able to fetch sales opportunities as a random executor", async () => {
+  it('should not be able to fetch sales opportunities as a random executor', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -230,7 +230,7 @@ describe("Fetch sales opportunities", () => {
     expect(result.value).toBeInstanceOf(NotAllowedError);
   });
 
-  it("should not be able to fetch sales opportunities if sales rep does not exist", async () => {
+  it('should not be able to fetch sales opportunities if sales rep does not exist', async () => {
     const salesRep = makeSalesperson();
     salespersonsRepo.items.push(salesRep);
     const client = makeClient({ salesRepID: salesRep.id });
@@ -250,7 +250,7 @@ describe("Fetch sales opportunities", () => {
 
     const result = await sut.execute({
       executorID: manager.id.toString(),
-      salespersonID: "non-existing-id",
+      salespersonID: 'non-existing-id',
       page: 1,
     });
 

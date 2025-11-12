@@ -1,14 +1,14 @@
-import { Either, left, right } from "@/core/either";
-import { Client } from "../../enterprise/entities/client";
-import { ClientsRepo } from "../repos/clients-repo";
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { DomainEvents } from "@/core/events/domain-events";
-import { ClientAlreadyExistsError } from "./errors/client-already-exists-error";
-import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
-import { SalespersonsRepo } from "../repos/salespersons-repo";
-import { SalespersonRole } from "../../enterprise/entities/enum/salespersonRole";
-import { ClientNotFoundError } from "./errors/client-not-found-error";
-import { SalespersonNotFoundError } from "./errors/salesperson-not-found-error";
+import { Either, left, right } from '@/core/either';
+import { Client } from '../../enterprise/entities/client';
+import { ClientsRepo } from '../repos/clients-repo';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { DomainEvents } from '@/core/events/domain-events';
+import { ClientAlreadyExistsError } from './errors/client-already-exists-error';
+import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
+import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
+import { ClientNotFoundError } from './errors/client-not-found-error';
+import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 
 interface UpdateClientUseCaseRequest {
   executorID: string;
@@ -33,7 +33,7 @@ type UpdateClientUseCaseResponse = Either<
 export class UpdateClientUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
-    private clientsRepo: ClientsRepo
+    private clientsRepo: ClientsRepo,
   ) {}
 
   async execute({
@@ -57,9 +57,8 @@ export class UpdateClientUseCase {
       return left(new ClientNotFoundError());
     }
 
-    const doesNewSalesRepExists = await this.salespersonsRepo.findByID(
-      salesRepID
-    );
+    const doesNewSalesRepExists =
+      await this.salespersonsRepo.findByID(salesRepID);
 
     if (!doesNewSalesRepExists) {
       return left(new SalespersonNotFoundError());
