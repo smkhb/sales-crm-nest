@@ -6,6 +6,7 @@ import { DomainEvents } from '@/core/events/domain-events';
 import { ClientAlreadyExistsError } from './errors/client-already-exists-error';
 import { SalespersonsRepo } from '../repos/salespersons-repo';
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { Injectable } from '@nestjs/common';
 
 interface RegisterClientUseCaseRequest {
   executorID: string;
@@ -21,7 +22,7 @@ type RegisterClientUseCaseResponse = Either<
   ClientAlreadyExistsError | SalespersonNotFoundError,
   { client: Client }
 >;
-
+@Injectable()
 export class RegisterClientUseCase {
   constructor(
     private clientsRepo: ClientsRepo,
