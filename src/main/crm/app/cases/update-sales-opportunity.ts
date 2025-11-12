@@ -63,7 +63,7 @@ export class UpdateSalesOpportunityUseCase {
     salesOpportunity.updateValue(value);
     salesOpportunity.updateStatus(status);
 
-    this.salesOpportunitiesRepo.save(salesOpportunity);
+    await this.salesOpportunitiesRepo.save(salesOpportunity);
     DomainEvents.dispatchEventsForAggregate(salesOpportunity.id);
 
     return right({ salesOpportunity });

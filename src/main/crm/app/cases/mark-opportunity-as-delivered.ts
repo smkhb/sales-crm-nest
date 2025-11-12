@@ -63,7 +63,7 @@ export class MarkOpportunityAsDeliveredUseCase {
       return left(result.value);
     }
 
-    this.salesOpportunitiesRepo.save(salesOpportunity);
+    await this.salesOpportunitiesRepo.save(salesOpportunity);
 
     return right({ salesOpportunity });
   }

@@ -235,7 +235,7 @@ describe('Update Sales Opportunity', () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it.only('should trigger a domain event upon updating status and high value from a sales opportunity', async () => {
+  it('should trigger a domain event upon updating status and high value from a sales opportunity', async () => {
     const consoleSpy = vi.spyOn(console, 'log');
 
     const salesperson = makeSalesperson();

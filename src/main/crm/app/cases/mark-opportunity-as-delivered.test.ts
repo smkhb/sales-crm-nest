@@ -208,7 +208,7 @@ describe('Mark Opportunity as Delivered', () => {
     expect(result.value).toBeInstanceOf(SalesOpportunityPhotoURLRequiredError);
   });
 
-  it.only('should trigger a domain event upon delivering a sales opportunity', async () => {
+  it('should trigger a domain event upon delivering a sales opportunity', async () => {
     const consoleSpy = vi.spyOn(console, 'log');
     const salesperson = makeSalesperson();
     salespersonsRepo.items.push(salesperson);

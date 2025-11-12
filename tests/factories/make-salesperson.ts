@@ -1,14 +1,14 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { SalespersonRole } from "@/main/crm/enterprise/entities/enum/salespersonRole";
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { SalespersonRole } from '@/main/crm/enterprise/entities/enum/salespersonRole';
 import {
   Salesperson,
   SalespersonProps,
-} from "@/main/crm/enterprise/entities/salesperson";
-import { faker } from "@faker-js/faker";
+} from '@/main/crm/enterprise/entities/salesperson';
+import { faker } from '@faker-js/faker';
 
 export function makeSalesperson(
   override: Partial<SalespersonProps> = {},
-  id?: UniqueEntityID
+  id?: UniqueEntityID,
 ) {
   const salesperson = Salesperson.create(
     {
@@ -22,7 +22,7 @@ export function makeSalesperson(
 
       ...override,
     },
-    id
+    id,
   );
   return salesperson;
 }

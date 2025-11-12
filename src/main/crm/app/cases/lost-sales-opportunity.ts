@@ -58,7 +58,7 @@ export class LostSalesOpportunityUseCase {
       return left(result.value);
     }
 
-    this.salesOpportunitiesRepo.save(salesOpportunity);
+    await this.salesOpportunitiesRepo.save(salesOpportunity);
 
     return right(null);
   }

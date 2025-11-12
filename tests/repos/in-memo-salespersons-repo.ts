@@ -1,5 +1,5 @@
-import { SalespersonsRepo } from "@/main/crm/app/repos/salespersons-repo";
-import { Salesperson } from "@/main/crm/enterprise/entities/salesperson";
+import { SalespersonsRepo } from '@/main/crm/app/repos/salespersons-repo';
+import { Salesperson } from '@/main/crm/enterprise/entities/salesperson';
 
 export class InMemoSalespersonsRepo implements SalespersonsRepo {
   public items: Salesperson[] = [];
@@ -10,11 +10,11 @@ export class InMemoSalespersonsRepo implements SalespersonsRepo {
 
   async save(salesperson: Salesperson) {
     const salespersonIndex = this.items.findIndex((item) =>
-      item.id.equals(salesperson.id)
+      item.id.equals(salesperson.id),
     );
 
     if (salespersonIndex < 0) {
-      throw new Error("salesperson not found"); // TODO: create a specific error
+      throw new Error('salesperson not found'); // TODO: create a specific error
     }
 
     this.items[salespersonIndex] = salesperson;
@@ -22,7 +22,7 @@ export class InMemoSalespersonsRepo implements SalespersonsRepo {
 
   async delete(salesperson: Salesperson) {
     const salespersonIndex = this.items.findIndex((item) =>
-      item.id.equals(salesperson.id)
+      item.id.equals(salesperson.id),
     );
 
     this.items.splice(salespersonIndex, 1);

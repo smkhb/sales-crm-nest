@@ -42,7 +42,7 @@ describe('Authenticate Salesperson', () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toHaveProperty('accessToken');
     expect(result.value).toEqual({
-      accessToken: expect(String),
+      accessToken: expect.any(String),
     });
   });
 

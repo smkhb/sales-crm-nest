@@ -1,10 +1,10 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
-import { Client, ClientProps } from "@/main/crm/enterprise/entities/client";
-import { faker } from "@faker-js/faker";
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Client, ClientProps } from '@/main/crm/enterprise/entities/client';
+import { faker } from '@faker-js/faker';
 
 export function makeClient(
   override: Partial<ClientProps> = {},
-  id?: UniqueEntityID
+  id?: UniqueEntityID,
 ) {
   const client = Client.create(
     {
@@ -16,7 +16,7 @@ export function makeClient(
 
       ...override,
     },
-    id
+    id,
   );
   return client;
 }

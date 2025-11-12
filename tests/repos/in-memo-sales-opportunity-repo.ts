@@ -1,5 +1,5 @@
-import { SalesOpportunitiesRepo } from "@/main/crm/app/repos/salesOpportunities-repo";
-import { SalesOpportunity } from "@/main/crm/enterprise/entities/sales-opportunity";
+import { SalesOpportunitiesRepo } from '@/main/crm/app/repos/salesOpportunities-repo';
+import { SalesOpportunity } from '@/main/crm/enterprise/entities/sales-opportunity';
 
 export class InMemoSalesOpportunitiesRepo implements SalesOpportunitiesRepo {
   public items: SalesOpportunity[] = [];
@@ -10,11 +10,11 @@ export class InMemoSalesOpportunitiesRepo implements SalesOpportunitiesRepo {
 
   async save(salesopportunity: SalesOpportunity) {
     const salesopportunityIndex = this.items.findIndex((item) =>
-      item.id.equals(salesopportunity.id)
+      item.id.equals(salesopportunity.id),
     );
 
     if (salesopportunityIndex < 0) {
-      throw new Error("sales opportunity not found");
+      throw new Error('sales opportunity not found');
     }
 
     this.items[salesopportunityIndex] = salesopportunity;
@@ -22,7 +22,7 @@ export class InMemoSalesOpportunitiesRepo implements SalesOpportunitiesRepo {
 
   async delete(salesopportunity: SalesOpportunity) {
     const salesopportunityIndex = this.items.findIndex((item) =>
-      item.id.equals(salesopportunity.id)
+      item.id.equals(salesopportunity.id),
     );
 
     this.items.splice(salesopportunityIndex, 1);
@@ -30,7 +30,7 @@ export class InMemoSalesOpportunitiesRepo implements SalesOpportunitiesRepo {
 
   async findByID(id: string) {
     const salesopportunity = this.items.find(
-      (item) => item.id.toString() === id
+      (item) => item.id.toString() === id,
     );
 
     if (!salesopportunity) {

@@ -201,7 +201,7 @@ describe('Lost Sales Opportunity', () => {
     expect(result.value).toBeInstanceOf(CantMarkSalesOpportunityAsLostError);
   });
 
-  it.only('should trigger a domain event upon losting a sales opportunity', async () => {
+  it('should trigger a domain event upon losting a sales opportunity', async () => {
     const consoleSpy = vi.spyOn(console, 'log');
     const salesperson = makeSalesperson();
     salespersonsRepo.items.push(salesperson);

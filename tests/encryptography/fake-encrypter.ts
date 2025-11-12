@@ -1,4 +1,4 @@
-import { Encrypter } from "@/main/crm/app/cryptography/encrypter";
+import { Encrypter } from '@/main/crm/app/cryptography/encrypter';
 
 export class FakeEncrypter implements Encrypter {
   async encrypt(payload: Record<string, unknown>): Promise<string> {

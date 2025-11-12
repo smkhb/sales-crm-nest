@@ -67,7 +67,7 @@ export class RegisterSalesOpportunityUseCase {
       value,
     });
 
-    this.salesOpportunitiesRepo.create(salesOpportunity);
+    await this.salesOpportunitiesRepo.create(salesOpportunity);
     DomainEvents.dispatchEventsForAggregate(salesOpportunity.id);
 
     return right({ salesOpportunity });
