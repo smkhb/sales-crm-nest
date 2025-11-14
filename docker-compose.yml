@@ -1,35 +1,34 @@
-version: '3.8'
-
 services:
   api:
     build:
-      context: . # Procura o Dockerfile
+      context: .
       dockerfile: Dockerfile
-      target: development
-    command: pnpm run start:dev
     volumes:
       # Hot-Reload:
-      - ./src:/usr/src/app/src
+      - .:/app
       # volume "anónimo" para node_modules, para não misturar com o local:
-      - /usr/src/app/node_modules
+      - /app/node_modules
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - db # Docker espera o DB iniciar antes de iniciar a API
     environment:
-      DATABASE_URL: postgresql://user:password@db:5432/mydb
+      DATABASE_URL: postgresql://crm_admin:crm_password@db:5432/crm_db
 
   db:
-    image: bitnami/postgresql:17
-      - "5432:5432"
+    container_name: postgres_crm
+    image: postgres:17
+    ports:
+      - 5432:5432
     environment:
-      POSTGRESQL_USERNAME: user
-      POSTGRESQL_PASSWORD: password
-      POSTGRESQL_DATABASE: mydb
+      POSTGRES_USER: crm_admin
+      POSTGRES_PASSWORD: crm_password
+      POSTGRES_DB: crm_db
+      PGDATA: /data/postgres
     volumes:
       # Este volume garante que os seus dados do DB
       # permaneçam salvos mesmo se o container for destruído
-      - postgres_data:/bitnami/postgresql/data
+      - ./data/pg:/data/postgres
 
 # O volume "real" que vai ser criado no seu disco
 volumes:
