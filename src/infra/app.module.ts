@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { EnvModule } from './env/env.module';
 import { envSchema } from './env/env';
 import { HttpModule } from './http/http.module';
+import { DbModule } from './db/db.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { HttpModule } from './http/http.module';
     }),
     HttpModule,
     EnvModule,
+    DbModule,
   ],
 })
 export class AppModule {}

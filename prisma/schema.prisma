@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SalespersonRole {
+  saleperson
+  manager
+}
+
+enum ClientStatus {
+  lead
+  active
+  inactive
+}
+
+model Salesperson {
+  id       String          @id @default(uuid())
+  name     String
+  email    String          @unique
+  password String
+  phone    String
+  role     SalespersonRole @default(saleperson)
+  isActive Boolean         @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  clients Client[]
+
+  @@map("salespersons")
+}
+
+model Client {
+  id         String       @id @default(uuid())
+  name       String
+  email      String       @unique
+  phone      String
+  segment    String
+  status     ClientStatus @default(lead)
+  salesRepID String       @map("sales_rep_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  salesRep Salesperson @relation(fields: [salesRepID], references: [id])
+
+  @@map("clients")
+}
