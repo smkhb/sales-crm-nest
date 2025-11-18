@@ -4,6 +4,7 @@ import {
   Body,
   Controller,
   HttpCode,
+  Logger,
   Post,
   UsePipes,
 } from '@nestjs/common';
@@ -11,12 +12,13 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   registerSalespersonBodySchema,
   RegisterSalespersonDTO,
-} from './dto/register-salesperson';
+} from './dtos/register-salesperson-dto';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 
 @ApiTags('salesperson')
 @Controller('salesperson')
 export class RegisterSalespersonController {
+  private logger = new Logger(RegisterSalespersonController.name);
   constructor(private registerSalesperson: RegisterSalespersonUseCase) {}
 
   @Post()
@@ -38,7 +40,22 @@ export class RegisterSalespersonController {
     });
 
     if (result.isLeft()) {
-      throw new BadRequestException();
+      this.logger.warn(
+        `Failed to register salesperson: ${result.value.message}`,
+      );
+
+      throw new BadRequestException('lame');
     }
+
+    const { salesperson } = result.value;
+
+    return {
+      message: 'Salesperson registered successfully.', // TODO: Create a Presenter
+      salesperson: {
+        id: salesperson.id.toString(),
+        name: salesperson.name,
+        email: salesperson.email,
+      },
+    };
   }
 }

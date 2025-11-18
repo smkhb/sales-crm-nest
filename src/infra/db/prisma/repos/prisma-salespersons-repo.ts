@@ -37,6 +37,7 @@ export class PrismaSalespersonsRepo implements SalespersonsRepo {
   // * To Domain Actions
 
   async findByID(id: string): Promise<Salesperson | null> {
+    if (!id) return null;
     const salesperson = await this.prisma.salesperson.findUnique({
       where: { id },
     });

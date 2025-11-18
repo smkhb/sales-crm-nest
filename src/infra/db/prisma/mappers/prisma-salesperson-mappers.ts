@@ -1,6 +1,10 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { SalespersonRole as DomainSalespersonRole } from '@/main/crm/enterprise/entities/enum/salespersonRole';
 import { Salesperson as DomainSalesperson } from '@/main/crm/enterprise/entities/salesperson';
-import { Salesperson as PrismaSalesperson } from '@prisma/client';
+import {
+  Salesperson as PrismaSalesperson,
+  SalespersonRole as PrismaSalespersonRole,
+} from '@prisma/client';
 
 export class PrismaSalespersonMappers {
   static toPrisma(domainSalesperson: DomainSalesperson) {
@@ -10,6 +14,7 @@ export class PrismaSalespersonMappers {
       email: domainSalesperson.email,
       password: domainSalesperson.passwordHash,
       phone: domainSalesperson.phone,
+      role: domainSalesperson.role as PrismaSalespersonRole,
     };
   }
 
@@ -20,6 +25,7 @@ export class PrismaSalespersonMappers {
         email: prismaSalesperson.email,
         passwordHash: prismaSalesperson.password,
         phone: prismaSalesperson.phone,
+        role: prismaSalesperson.role as DomainSalespersonRole,
       },
       new UniqueEntityID(prismaSalesperson.id),
     );
