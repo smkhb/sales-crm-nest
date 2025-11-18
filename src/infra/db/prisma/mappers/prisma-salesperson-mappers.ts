@@ -14,7 +14,7 @@ export class PrismaSalespersonMappers {
       email: domainSalesperson.email,
       password: domainSalesperson.passwordHash,
       phone: domainSalesperson.phone,
-      role: domainSalesperson.role as PrismaSalespersonRole,
+      role: mapDomainRoleToPrisma(domainSalesperson.role),
     };
   }
 
@@ -30,4 +30,11 @@ export class PrismaSalespersonMappers {
       new UniqueEntityID(prismaSalesperson.id),
     );
   }
+}
+
+type RoleKey = keyof typeof PrismaSalespersonRole;
+function mapDomainRoleToPrisma(
+  domainRole: DomainSalespersonRole,
+): PrismaSalespersonRole {
+  return PrismaSalespersonRole[domainRole as RoleKey];
 }

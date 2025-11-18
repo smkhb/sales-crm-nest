@@ -14,6 +14,7 @@ import {
   RegisterSalespersonDTO,
 } from './dtos/register-salesperson-dto';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
+import { SalespersonPresenter } from './presenter/salesperson-presenter';
 
 @ApiTags('salesperson')
 @Controller('salesperson')
@@ -44,18 +45,14 @@ export class RegisterSalespersonController {
         `Failed to register salesperson: ${result.value.message}`,
       );
 
-      throw new BadRequestException('lame');
+      throw new BadRequestException();
     }
 
     const { salesperson } = result.value;
 
     return {
-      message: 'Salesperson registered successfully.', // TODO: Create a Presenter
-      salesperson: {
-        id: salesperson.id.toString(),
-        name: salesperson.name,
-        email: salesperson.email,
-      },
+      message: 'Salesperson registered successfully.',
+      salesperson: SalespersonPresenter.toHTTP(salesperson),
     };
   }
 }

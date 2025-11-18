@@ -6,8 +6,8 @@ Content-Type: application/json
 
 {
   "executorID": "7bb95895-08f4-4835-a8a3-f9031baf5eda",
-  "name": "John Doe",
-  "email": "johndoe@example.com",
+  "name": "John Doe 2",
+  "email": "johndoe2@example.com",
   "password": "password123",
   "phone": "123-456-7890"
 }
