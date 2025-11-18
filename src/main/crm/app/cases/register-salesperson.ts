@@ -7,6 +7,7 @@ import { SalespersonAlreadyExistsError } from './errors/salesperson-already-exis
 import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { Injectable } from '@nestjs/common';
 
 interface RegisterSalespersonUseCaseRequest {
   executorID: string;
@@ -21,6 +22,7 @@ type RegisterSalespersonUseCaseResponse = Either<
   { salesperson: Salesperson }
 >;
 
+@Injectable()
 export class RegisterSalespersonUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
