@@ -1,0 +1,26 @@
+# Lista de arquivos a ignorar pelo Docker
+
+data
+dist
+node_modules
+
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.DS_Store
+Thumbs.db
+
+.git
+.gitignore
+.dockerignore
+dockerfile
+docker-compose.yml
+
+.env
+*.env.local
+
+client.http
+README.md
