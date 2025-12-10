@@ -5,6 +5,7 @@ import {
   Controller,
   HttpCode,
   Post,
+  UnauthorizedException,
   UsePipes,
 } from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
@@ -43,9 +44,9 @@ export class AuthenticateSalespersonController {
 
       switch (error.constructor) {
         case WrongCredentialsError:
-          throw new ConflictException(error.message);
+          throw new UnauthorizedException(error.message);
         case SalespersonNotFoundError:
-          throw new ConflictException(error.message);
+          throw new UnauthorizedException(error.message);
         case SalespersonDeactiveError:
           throw new ConflictException(error.message);
         default:
@@ -55,8 +56,6 @@ export class AuthenticateSalespersonController {
 
     const { accessToken } = result.value;
 
-    return {
-      accessToken,
-    };
+    return { accessToken };
   }
 }

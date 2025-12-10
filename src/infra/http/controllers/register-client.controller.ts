@@ -6,6 +6,7 @@ import {
   Controller,
   HttpCode,
   Post,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
@@ -17,9 +18,11 @@ import {
   registerClientBodySchema,
 } from './dtos/register-client-dto';
 import { ClientPresenter } from './presenter/client-presenter';
+import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
 
 @ApiTags('client')
 @Controller('client')
+@UseGuards(JwtAuthGuard)
 export class RegisterClientController {
   constructor(private registerClient: RegisterClientUseCase) {}
 
