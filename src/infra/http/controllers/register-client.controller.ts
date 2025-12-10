@@ -8,22 +8,15 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
-import z from 'zod';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClientAlreadyExistsError } from '@/main/crm/app/cases/errors/client-already-exists-error';
 import { SalespersonNotFoundError } from '@/main/crm/app/cases/errors/salesperson-not-found-error';
-
-const registerClientBodySchema = z.object({
-  executorID: z.uuid(),
-  name: z.string(),
-  email: z.email(),
-  phone: z.string(),
-  segment: z.string(),
-  salesRepID: z.uuid(),
-});
-
-type RegisterClientBody = z.infer<typeof registerClientBodySchema>;
+import {
+  RegisterClientBody,
+  registerClientBodySchema,
+} from './dtos/register-client-dto';
+import { ClientPresenter } from './presenter/client-presenter';
 
 @ApiTags('client')
 @Controller('client')
@@ -33,7 +26,7 @@ export class RegisterClientController {
   @Post()
   @ApiResponse({
     status: 201,
-    description: 'The record has been successfully created.',
+    description: 'The client has been successfully registered.',
   })
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(registerClientBodySchema))
@@ -61,5 +54,11 @@ export class RegisterClientController {
           throw new BadRequestException(error.message);
       }
     }
+    const { client } = result.value;
+
+    return {
+      message: 'Client registered successfully.',
+      client: ClientPresenter.toHTTP(client),
+    };
   }
 }

@@ -12,3 +12,17 @@ Content-Type: application/json
   "phone": "123-456-7890"
 }
 ###
+
+# @name register_client
+POST {{baseUrl}}/client
+Content-Type: application/json
+
+{
+  "executorID": "7bb95895-08f4-4835-a8a3-f9031baf5eda", 
+  "name": "Client 1",
+  "email": "client1@example.com",
+  "phone": "123-456-7890",
+  "segment": "Retail",
+  "salesRepID": "34ef3408-6f19-4426-ae65-cea5b809e43b"
+}
+###
