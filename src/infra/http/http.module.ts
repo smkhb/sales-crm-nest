@@ -5,10 +5,20 @@ import { RegisterSalespersonUseCase } from '@/main/crm/app/cases/register-salesp
 import { CryptModule } from '../crypt/crypt.module';
 import { RegisterClientController } from './controllers/register-client.controller';
 import { RegisterClientUseCase } from '@/main/crm/app/cases/register-client';
+import { AuthenticateSalespersonUseCase } from '@/main/crm/app/cases/authenticate-salesperson';
+import { AuthenticateSalespersonController } from './controllers/authenticate-salesperson.controller';
 
 @Module({
   imports: [DbModule, CryptModule],
-  controllers: [RegisterSalespersonController, RegisterClientController],
-  providers: [RegisterSalespersonUseCase, RegisterClientUseCase],
+  controllers: [
+    RegisterSalespersonController,
+    RegisterClientController,
+    AuthenticateSalespersonController,
+  ],
+  providers: [
+    RegisterSalespersonUseCase,
+    RegisterClientUseCase,
+    AuthenticateSalespersonUseCase,
+  ],
 })
 export class HttpModule {}

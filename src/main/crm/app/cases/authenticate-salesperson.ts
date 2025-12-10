@@ -5,6 +5,7 @@ import { Encrypter } from '../cryptography/encrypter';
 import { WrongCredentialsError } from '@/core/errors/errors/wrong-credentials-error';
 import { SalespersonDeactiveError } from './errors/salesperson-deactive-error';
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { Injectable } from '@nestjs/common';
 
 interface AuthenticateSalespersonUseCaseRequest {
   email: string;
@@ -16,6 +17,7 @@ type AuthenticateSalespersonUseCaseResponse = Either<
   { accessToken: string }
 >;
 
+@Injectable()
 export class AuthenticateSalespersonUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,

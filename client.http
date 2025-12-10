@@ -13,6 +13,16 @@ Content-Type: application/json
 }
 ###
 
+# @name authenticate_salesperson
+POST {{baseUrl}}/auth
+Content-Type: application/json
+
+{
+  "email": "johndoe2@example.com",
+  "password": "password123"
+}
+###
+
 # @name register_client
 POST {{baseUrl}}/client
 Content-Type: application/json
