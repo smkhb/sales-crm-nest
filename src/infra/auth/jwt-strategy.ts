@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common';
 
 const tokenPayloadSchema = z.object({
   sub: z.uuid(),
+  role: z.string(),
 });
 
 export type UserPayload = z.infer<typeof tokenPayloadSchema>;
