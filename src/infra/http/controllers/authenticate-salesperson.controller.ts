@@ -31,8 +31,8 @@ export class AuthenticateSalespersonController {
   })
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(authenticateSalespersonBodySchema))
-  async handle(@Body() body: AuthenticateSalespersonBody) {
-    const { email, password } = body;
+  async handle(@Body() authenticateDTO: AuthenticateSalespersonBody) {
+    const { email, password } = authenticateDTO;
 
     const result = await this.authenticate.execute({
       email,

@@ -10,18 +10,21 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ClientAlreadyExistsError } from '@/main/crm/app/cases/errors/client-already-exists-error';
 import { SalespersonNotFoundError } from '@/main/crm/app/cases/errors/salesperson-not-found-error';
 import {
-  RegisterClientBody,
+  RegisterClientDTO,
   registerClientBodySchema,
 } from './dtos/register-client-dto';
 import { ClientPresenter } from './presenter/client-presenter';
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
+import { CurrentUser } from '@/infra/auth/current-user.decorator';
+import { UserPayload } from '@/infra/auth/jwt-strategy';
 
-@ApiTags('client')
-@Controller('client')
+@ApiTags('clients')
+@ApiBearerAuth()
+@Controller('clients')
 @UseGuards(JwtAuthGuard)
 export class RegisterClientController {
   constructor(private registerClient: RegisterClientUseCase) {}
@@ -33,16 +36,19 @@ export class RegisterClientController {
   })
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(registerClientBodySchema))
-  async handle(@Body() body: RegisterClientBody) {
-    const { executorID, name, email, phone, segment, salesRepID } = body;
+  async handle(
+    @Body() registerClientDTO: RegisterClientDTO,
+    @CurrentUser() user: UserPayload,
+  ) {
+    const { name, email, phone, segment } = registerClientDTO;
 
     const result = await this.registerClient.execute({
-      executorID,
+      executorID: user.sub,
       name,
       email,
       phone,
       segment,
-      salesRepID,
+      salesRepID: user.sub,
     });
 
     if (result.isLeft()) {

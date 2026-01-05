@@ -6,18 +6,24 @@ import {
   HttpCode,
   Logger,
   Post,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   registerSalespersonBodySchema,
   RegisterSalespersonDTO,
 } from './dtos/register-salesperson-dto';
 import { ZodValidationPipe } from '../pipes/zod-validation-pipe';
 import { SalespersonPresenter } from './presenter/salesperson-presenter';
+import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
+import { CurrentUser } from '@/infra/auth/current-user.decorator';
+import { UserPayload } from '@/infra/auth/jwt-strategy';
 
-@ApiTags('salesperson')
-@Controller('salesperson')
+@ApiTags('salespersons')
+@ApiBearerAuth()
+@Controller('salespersons')
+@UseGuards(JwtAuthGuard)
 export class RegisterSalespersonController {
   private logger = new Logger(RegisterSalespersonController.name);
   constructor(private registerSalesperson: RegisterSalespersonUseCase) {}
@@ -29,11 +35,14 @@ export class RegisterSalespersonController {
   })
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(registerSalespersonBodySchema))
-  async handle(@Body() body: RegisterSalespersonDTO) {
-    const { executorID, name, email, password, phone } = body;
+  async handle(
+    @Body() registerSalespersonDTO: RegisterSalespersonDTO,
+    @CurrentUser() user: UserPayload,
+  ) {
+    const { name, email, password, phone } = registerSalespersonDTO;
 
     const result = await this.registerSalesperson.execute({
-      executorID,
+      executorID: user.sub,
       name,
       email,
       password,

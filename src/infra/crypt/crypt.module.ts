@@ -4,9 +4,17 @@ import { HashGenerator } from '@/main/crm/app/cryptography/hash-generator';
 import { HashComparer } from '@/main/crm/app/cryptography/hash-comparer';
 import { Encrypter } from '@/main/crm/app/cryptography/encrypter';
 import { JwtEncrypter } from './jwt-encrypter';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'default-secret',
+      signOptions: { expiresIn: '1h', algorithm: 'HS256' },
+    }),
+  ],
   providers: [
     {
       provide: HashGenerator,

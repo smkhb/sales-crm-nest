@@ -1,19 +1,6 @@
 @baseUrl = http://localhost:3333
 @authToken = {{authenticate.response.body.accessToken}}
 
-# @name register_salesperson
-POST {{baseUrl}}/salesperson
-Content-Type: application/json
-
-{
-  "executorID": "7bb95895-08f4-4835-a8a3-f9031baf5eda",
-  "name": "John Doe 2",
-  "email": "johndoe2@example.com",
-  "password": "password123",
-  "phone": "123-456-7890"
-}
-###
-
 # @name authenticate
 POST {{baseUrl}}/auth
 Content-Type: application/json
@@ -24,17 +11,39 @@ Content-Type: application/json
 }
 ###
 
-# @name register_client
-POST {{baseUrl}}/client
+# @name authenticate
+POST {{baseUrl}}/auth
+Content-Type: application/json
+
+{
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+###
+
+# @name register_salesperson
+POST {{baseUrl}}/salespersons
 Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "executorID": "7bb95895-08f4-4835-a8a3-f9031baf5eda",
-  "name": "Client 5",
-  "email": "client5@example.com",
+  "name": "John Doe 5",
+  "email": "johndoe5@example.com",
+  "password": "password123",
+  "phone": "123-456-7890"
+}
+###
+
+
+# @name register_client
+POST {{baseUrl}}/clients
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Client 7",
+  "email": "client7@example.com",
   "phone": "123-456-7890",
-  "segment": "Retail",
-  "salesRepID": "7bb95895-08f4-4835-a8a3-f9031baf5eda"
+  "segment": "Retail"
 }
 ###

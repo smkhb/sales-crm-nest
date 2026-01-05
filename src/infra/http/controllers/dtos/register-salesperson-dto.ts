@@ -2,8 +2,6 @@ import { SalespersonRole } from '@/main/crm/enterprise/entities/enum/salesperson
 import z from 'zod';
 
 export const registerSalespersonBodySchema = z.object({
-  executorID: z.uuid({ error: 'executorID must be a valid UUID' }),
-
   name: z
     .string({ error: 'Name is required' })
     .min(3, 'Name must be at least 3 characters long'),
