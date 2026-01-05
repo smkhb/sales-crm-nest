@@ -8,6 +8,7 @@ export default defineConfig({
     exclude: ['**/node_modules/**', '**/dist/**', '**/vitest.config.e2e.ts'],
     globals: true,
     root: './',
+    setupFiles: ['./tests/setup-e2e.ts'],
     alias: {
       '@src': './src',
       '@test': './test',
