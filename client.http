@@ -27,8 +27,8 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "name": "John Doe 5",
-  "email": "johndoe5@example.com",
+  "name": "John Doe 7",
+  "email": "johndoe7@example.com",
   "password": "password123",
   "phone": "123-456-7890"
 }
@@ -41,8 +41,8 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "name": "Client 7",
-  "email": "client7@example.com",
+  "name": "Client 9",
+  "email": "client9@example.com",
   "phone": "123-456-7890",
   "segment": "Retail"
 }
