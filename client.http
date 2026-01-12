@@ -41,8 +41,8 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "name": "Client 9",
-  "email": "client9@example.com",
+  "name": "Client 10",
+  "email": "client10@example.com",
   "phone": "123-456-7890",
   "segment": "Retail"
 }
