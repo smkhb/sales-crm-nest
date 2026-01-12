@@ -3,7 +3,6 @@ import { DbModule } from '@/infra/db/db.module';
 import { PrismaService } from '@/infra/db/prisma/prisma.service';
 import { INestApplication } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { ClientFactoryE2E } from 'tests/factories/make-client-e2e';
 import { SalespersonFactoryE2E } from 'tests/factories/make-salesperson-e2e';
 import request from 'supertest';
 import { Test } from '@nestjs/testing';
