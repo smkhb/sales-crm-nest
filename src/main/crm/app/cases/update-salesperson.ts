@@ -6,16 +6,17 @@ import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { DomainEvents } from '@/core/events/domain-events';
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { Injectable } from '@nestjs/common';
 
 interface UpdateSalespersonUseCaseRequest {
   executorRole: SalespersonRole;
   salespersonID: string; // ID of the salesperson to be updated
 
   // Fields that can be updated
-  name: string;
-  email: string;
-  phone: string;
-  role: SalespersonRole;
+  name?: string;
+  email?: string;
+  phone?: string;
+  role?: SalespersonRole;
 }
 
 type UpdateSalespersonUseCaseResponse = Either<
@@ -23,6 +24,7 @@ type UpdateSalespersonUseCaseResponse = Either<
   { salesperson: Salesperson }
 >;
 
+@Injectable()
 export class UpdateSalespersonUseCase {
   constructor(private salespersonsRepo: SalespersonsRepo) {}
 
@@ -32,6 +34,7 @@ export class UpdateSalespersonUseCase {
     name,
     email,
     phone,
+    role,
   }: UpdateSalespersonUseCaseRequest): Promise<UpdateSalespersonUseCaseResponse> {
     if (executorRole !== SalespersonRole.manager) {
       return left(new NotAllowedError());
@@ -43,20 +46,22 @@ export class UpdateSalespersonUseCase {
       return left(new SalespersonNotFoundError());
     }
 
-    const salespersonWithSameEmail =
-      await this.salespersonsRepo.findByEmail(email);
+    if (email) {
+      const salespersonWithSameEmail =
+        await this.salespersonsRepo.findByEmail(email);
 
-    if (
-      salespersonWithSameEmail &&
-      !salesperson.id.equals(salespersonWithSameEmail.id)
-    ) {
-      return left(new SalespersonAlreadyExistsError(email));
+      if (
+        salespersonWithSameEmail &&
+        !salesperson.id.equals(salespersonWithSameEmail.id)
+      ) {
+        return left(new SalespersonAlreadyExistsError(email));
+      }
+      salesperson.updateEmail(email);
     }
 
-    salesperson.updateName(name);
-    salesperson.updateEmail(email);
-    salesperson.updatePhone(phone);
-    salesperson.updateRole(executorRole);
+    if (name) salesperson.updateName(name);
+    if (phone) salesperson.updatePhone(phone);
+    if (role) salesperson.updateRole(role);
 
     await this.salespersonsRepo.save(salesperson);
 

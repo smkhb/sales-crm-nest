@@ -7,6 +7,8 @@ import { RegisterClientController } from './controllers/register-client.controll
 import { RegisterClientUseCase } from '@/main/crm/app/cases/register-client';
 import { AuthenticateSalespersonUseCase } from '@/main/crm/app/cases/authenticate-salesperson';
 import { AuthenticateSalespersonController } from './controllers/authenticate-salesperson.controller';
+import { UpdateSalespersonController } from './controllers/update-salesperson.controller';
+import { UpdateSalespersonUseCase } from '@/main/crm/app/cases/update-salesperson';
 
 @Module({
   imports: [DbModule, CryptModule],
@@ -14,11 +16,13 @@ import { AuthenticateSalespersonController } from './controllers/authenticate-sa
     RegisterSalespersonController,
     RegisterClientController,
     AuthenticateSalespersonController,
+    UpdateSalespersonController,
   ],
   providers: [
     RegisterSalespersonUseCase,
     RegisterClientUseCase,
     AuthenticateSalespersonUseCase,
+    UpdateSalespersonUseCase,
   ],
 })
 export class HttpModule {}
