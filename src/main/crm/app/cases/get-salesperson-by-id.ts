@@ -5,6 +5,7 @@ import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole'
 
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { Injectable } from '@nestjs/common';
 
 interface GetSalespersonByIDUseCaseRequest {
   executorRole: SalespersonRole;
@@ -16,6 +17,7 @@ type GetSalespersonByIDUseCaseResponse = Either<
   { salesperson: Salesperson }
 >;
 
+@Injectable()
 export class GetSalespersonByIDUseCase {
   constructor(private salespersonsRepo: SalespersonsRepo) {}
 
