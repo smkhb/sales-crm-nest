@@ -4,6 +4,7 @@ import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
 
 import { SalespersonsRepo } from '../repos/salespersons-repo';
+import { Injectable } from '@nestjs/common';
 
 interface FetchSalespersonUseCaseRequest {
   executorRole: SalespersonRole;
@@ -15,6 +16,7 @@ type FetchSalespersonUseCaseResponse = Either<
   { salespersons: Salesperson[] }
 >;
 
+@Injectable()
 export class FetchSalespersonUseCase {
   constructor(private salespersonsRepo: SalespersonsRepo) {}
 

@@ -24,12 +24,17 @@ describe('Get salesperson details E2E', () => {
     await app.init();
   });
 
-  test('[GET]/salespersons/:id - a manager should be able to get details from a salesperson', async () => {
+  test('[GET]/salespersons - a manager should be able to fetch salespersons', async () => {
     const manager = await salespersonFactory.makePrismaSalesperson({
+      name: 'Manager User',
       role: 'manager',
     });
 
-    const salesperson = await salespersonFactory.makePrismaSalesperson();
+    for (let i = 1; i <= 5; i++) {
+      await salespersonFactory.makePrismaSalesperson({
+        name: `Salesperson ${i}`,
+      });
+    }
 
     const accessToken = jwt.sign({
       sub: manager.id,
@@ -37,9 +42,22 @@ describe('Get salesperson details E2E', () => {
     });
 
     const response = await request(app.getHttpServer())
-      .get(`/salespersons/${salesperson.id}`)
+      .get(`/salespersons`)
+      .query({ page: 1 })
       .set('Authorization', `Bearer ${accessToken}`);
 
     expect(response.status).toBe(200);
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(response.body.salespersons).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: 'Manager User' }),
+        expect.objectContaining({ name: 'Salesperson 1' }),
+        expect.objectContaining({ name: 'Salesperson 2' }),
+        expect.objectContaining({ name: 'Salesperson 3' }),
+        expect.objectContaining({ name: 'Salesperson 4' }),
+        expect.objectContaining({ name: 'Salesperson 5' }),
+      ]),
+    );
   });
 });
