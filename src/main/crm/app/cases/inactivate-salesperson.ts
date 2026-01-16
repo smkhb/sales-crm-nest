@@ -4,6 +4,7 @@ import { SalespersonsRepo } from '../repos/salespersons-repo';
 import { SalespersonRole } from '../../enterprise/entities/enum/salespersonRole';
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
+import { Injectable } from '@nestjs/common';
 
 interface InactivateSalespersonUseCaseRequest {
   executorRole: SalespersonRole;
@@ -15,6 +16,7 @@ type InactivateSalespersonUseCaseResponse = Either<
   { salesperson: Salesperson }
 >;
 
+@Injectable()
 export class InactivateSalespersonUseCase {
   constructor(private salespersonsRepo: SalespersonsRepo) {}
 

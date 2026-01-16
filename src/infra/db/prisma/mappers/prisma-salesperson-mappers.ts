@@ -15,6 +15,9 @@ export class PrismaSalespersonMappers {
       password: domainSalesperson.passwordHash,
       phone: domainSalesperson.phone,
       role: mapDomainRoleToPrisma(domainSalesperson.role),
+      isActive: domainSalesperson.isActive,
+      createdAt: domainSalesperson.createdAt,
+      updatedAt: domainSalesperson.updatedAt || undefined,
     };
   }
 
