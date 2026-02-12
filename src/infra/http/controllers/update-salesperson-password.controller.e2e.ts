@@ -5,11 +5,9 @@ import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import { SalespersonFactoryE2E } from 'tests/factories/make-salesperson-e2e';
 import request from 'supertest';
-import { PrismaService } from '@/infra/db/prisma/prisma.service';
 
-describe('Inactivate salesperson E2E', () => {
+describe('Update salesperson password E2E', () => {
   let app: INestApplication;
-  let prisma: PrismaService;
   let jwt: JwtService;
   let salespersonFactory: SalespersonFactoryE2E;
 
@@ -20,14 +18,13 @@ describe('Inactivate salesperson E2E', () => {
     }).compile();
 
     app = moduleRef.createNestApplication();
-    prisma = moduleRef.get(PrismaService);
     jwt = moduleRef.get(JwtService);
     salespersonFactory = moduleRef.get(SalespersonFactoryE2E);
 
     await app.init();
   });
 
-  test('[DELETE]/salespersons/:id - a manager should be able to inactivate a salesperson', async () => {
+  test('[PATCH]/salespersons/password/:id - a manager should be able to update a salesperson password', async () => {
     const manager = await salespersonFactory.makePrismaSalesperson({
       role: 'manager',
     });
@@ -40,18 +37,12 @@ describe('Inactivate salesperson E2E', () => {
     });
 
     const response = await request(app.getHttpServer())
-      .delete(`/salespersons/${salesperson.id}`)
-      .set('Authorization', `Bearer ${accessToken}`);
+      .patch(`/salespersons/password/${salesperson.id}`)
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send({
+        newPassword: 'newpassword',
+      });
 
-    expect(response.status).toBe(204);
-
-    const salespersonOnDatabase = await prisma.salesperson.findUnique({
-      where: {
-        id: salesperson.id.toString(),
-      },
-    });
-
-    expect(salespersonOnDatabase).toBeTruthy();
-    expect(salespersonOnDatabase?.isActive).toBe(false);
+    expect(response.status).toBe(200);
   });
 });

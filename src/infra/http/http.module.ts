@@ -15,6 +15,8 @@ import { FetchSalespersonController } from './controllers/fetch-salespersons.con
 import { FetchSalespersonUseCase } from '@/main/crm/app/cases/fetch-salesperson';
 import { InactivateSalespersonController } from './controllers/inactivate-salesperson.controller';
 import { InactivateSalespersonUseCase } from '@/main/crm/app/cases/inactivate-salesperson';
+import { UpdateSalespersonPasswordController } from './controllers/update-salesperson-password.controller';
+import { UpdateSalespersonPasswordUseCase } from '@/main/crm/app/cases/update-salesperson-password';
 
 @Module({
   imports: [DbModule, CryptModule],
@@ -26,6 +28,7 @@ import { InactivateSalespersonUseCase } from '@/main/crm/app/cases/inactivate-sa
     GetSalespersonByIDController,
     FetchSalespersonController,
     InactivateSalespersonController,
+    UpdateSalespersonPasswordController,
   ],
   providers: [
     RegisterSalespersonUseCase,
@@ -35,6 +38,7 @@ import { InactivateSalespersonUseCase } from '@/main/crm/app/cases/inactivate-sa
     GetSalespersonByIDUseCase,
     FetchSalespersonUseCase,
     InactivateSalespersonUseCase,
+    UpdateSalespersonPasswordUseCase,
   ],
 })
 export class HttpModule {}

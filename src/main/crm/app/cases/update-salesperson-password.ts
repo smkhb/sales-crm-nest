@@ -6,6 +6,7 @@ import { NotAllowedError } from '@/core/errors/errors/not-allowed-error';
 import { DomainEvents } from '@/core/events/domain-events';
 import { SalespersonNotFoundError } from './errors/salesperson-not-found-error';
 import { HashGenerator } from '../cryptography/hash-generator';
+import { Injectable } from '@nestjs/common';
 
 interface UpdateSalespersonPasswordUseCaseRequest {
   executorRole: SalespersonRole;
@@ -18,6 +19,7 @@ type UpdateSalespersonPasswordUseCaseResponse = Either<
   { salesperson: Salesperson }
 >;
 
+@Injectable()
 export class UpdateSalespersonPasswordUseCase {
   constructor(
     private salespersonsRepo: SalespersonsRepo,
